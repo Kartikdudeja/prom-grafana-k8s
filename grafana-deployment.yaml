@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  grafana-deploy
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      name:  grafana-deploy
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - image:  grafana/grafana
+        name:  grafana    
+        ports:
+        - containerPort:  3000
+        resources:
