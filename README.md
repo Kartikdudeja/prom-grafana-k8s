@@ -12,7 +12,7 @@ Before you begin, ensure you have the following prerequisites:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/Kartikdudeja/prom-grafana-k8s.git
+   git clone https://github.com/Kartikdudeja/prometheus-grafana-k8s.git
    ```
 
 2. Change into the project directory:
@@ -20,3 +20,51 @@ Before you begin, ensure you have the following prerequisites:
    ```bash
    cd prometheus-grafana-k8s
    ```
+3. Deploy Prometheus and Grafana using provided Manifest files  
+
+   ``` bash
+   kubectl create -k .
+   ```
+
+4. Access Prometheus and Grafana:
+
+   - To access Prometheus, you can use a port-forward command:
+
+     ```bash
+     kubectl port-forward <prometheus-pod-name> 9090
+     ```
+
+     Then open your web browser and navigate to http://localhost:9090.
+
+   - To access Grafana, you can use a port-forward command:
+
+     ```bash
+     kubectl port-forward <grafana-pod-name> 3000
+     ```
+
+     Then open your web browser and navigate to http://localhost:3000.
+
+     Default Grafana credentials:
+     - Username: `admin`
+     - Password: `admin`
+
+5. Configure Grafana:
+
+   - Add Prometheus as a data source in Grafana using the URL `http://prometheus:9090`
+   - Import or create your dashboards in Grafana for monitoring your applications and infrastructure.
+  
+## Cleanup
+
+To remove Prometheus and Grafana from your Kubernetes cluster, run the following commands:
+
+```bash
+kubectl delete -k .
+```
+
+## Customization
+
+You can customize Prometheus and Grafana configurations by editing the YAML files. Refer to the official Prometheus and Grafana documentation for advanced configuration options.
+
+## Monitoring Targets
+
+To monitor your applications and services, you need to configure Prometheus to scrape the appropriate targets. Update the Prometheus configuration in the `prometheus-configmap.yaml` file to add or modify scraping targets.
